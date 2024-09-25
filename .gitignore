@@ -1,14 +1,21 @@
-.task_tracker/.vscode/tasks.json
+# Ignore VS Code settings
+.vscode/
 
-.task_tracker/.vscode/extensions.json
-.task_tracker/.vscode/launch.json
-.idea/vcs.xml
-.idea/modules.xml
-.idea/misc.xml
-.idea/task_10-task_tracker_anna_padun.iml
-.task_tracker/.vscode/tasks.json
-.idea/.gitignore
-.vscode/*
-.angular/*
-.dist/*
-.node_modules/*
+# Ignore IntelliJ IDEA settings
+.idea/
+
+# Ignore node_modules
+node_modules/
+
+# Ignore Angular temporary files
+.angular/
+
+# Ignore dist folder (build output)
+dist/
+
+# Ignore cache and temp folders
+.angular/cache/
+
+# Ignore system files in task_tracker folder
+task_tracker/.vscode/
+task_tracker/.angular/
