@@ -9,3 +9,6 @@
 .task_tracker/.vscode/tasks.json
 .idea/.gitignore
 .vscode/*
+.angular/*
+.dist/*
+.node_modules/*
