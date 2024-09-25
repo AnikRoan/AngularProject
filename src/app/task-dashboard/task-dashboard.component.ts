@@ -33,7 +33,7 @@ interface Task {
   templateUrl: './task-dashboard.component.html',
   styleUrls: ['./task-dashboard.component.scss']
 })
-export class TaskDashboardComponent implements OnInit {//логика которая виполница при инициализации
+export class TaskDashboardComponent implements OnInit {
   
   task: Task ={description: '', projectName: '', date: new Date(), time: '', taskId: 0}
   tasks: Task[] = [];
@@ -48,7 +48,7 @@ export class TaskDashboardComponent implements OnInit {//логика котор
   }
   
   addTask(): void {
-    //this.task.taskId = this.generateTaskId();
+   
     this.tasks.push({...this.task});
     localStorage.setItem('tasks', JSON.stringify(this.tasks))
     this.task = {description: '', projectName: '', date: new Date(), time: '', taskId: this.generateTaskId()}
@@ -63,4 +63,3 @@ export class TaskDashboardComponent implements OnInit {//логика котор
     
   }
 }
-
