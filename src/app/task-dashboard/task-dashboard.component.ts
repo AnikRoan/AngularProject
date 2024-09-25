@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -28,7 +28,8 @@ interface Task {
     MatDatepickerModule,
     MatNativeDateModule,
     MatTableModule,
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ],
   templateUrl: './task-dashboard.component.html',
   styleUrls: ['./task-dashboard.component.scss']
@@ -39,19 +40,51 @@ export class TaskDashboardComponent implements OnInit {
   tasks: Task[] = [];
   displayedColumns: string[] = ['description', 'projectName', 'date', 'time','actions'];
   deleteTask: EventEmitter<number> = new EventEmitter<number>();
+  taskForm: FormGroup = new FormGroup({
+    description: new FormControl(''),
+    projectName: new FormControl(''),
+    date: new FormControl(''),
+    time: new FormControl(''),
+  });
 
   ngOnInit(): void {
     const savedTasks = localStorage.getItem('tasks')
     if(savedTasks){
       this.tasks = JSON.parse(savedTasks)
     }
+
   }
   
   addTask(): void {
+    if(this.taskForm.valid){
+      const task = this.taskForm.value;
+      task.taskId = this.generateTaskId();
+
+         if(!task.date){
+           task.date = new Date().toISOString().split('T')[0];
+         }else{
+           task.date = new Date(task.date).toISOString().split('T')[0];
+         }
+         
+      if(!task.time){
+        task.time = this.getCurrentTime();
+      }
+      this.tasks.push(task);
+    
+      this.taskForm.reset({
+        date: new Date()
+      });
+      
+      localStorage.setItem('tasks', JSON.stringify(this.tasks))
+    }
    
-    this.tasks.push({...this.task});
-    localStorage.setItem('tasks', JSON.stringify(this.tasks))
-    this.task = {description: '', projectName: '', date: new Date(), time: '', taskId: this.generateTaskId()}
+  }
+
+  getCurrentTime(): string {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0'); 
+    const minutes = now.getMinutes().toString().padStart(2, '0'); 
+    return `${hours}:${minutes}`;
   }
   generateTaskId(): number {
     return this.tasks.length > 0 ? Math.max(...this.tasks.map(task => task.taskId)) + 1 : 1;
