@@ -49,8 +49,8 @@
         
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>Actions</th>
-            <td mat-cell *matCellDef="let task">
-                <button mat-raised-button color="primary" (click)="removeTask(task.taskId)">Delete</button>
+            <td mat-cell *matCellDef="let task; let i = index">
+                <button mat-raised-button color="primary" (click)="removeTask(i)">Delete</button>
             </td>
         </ng-container>
         

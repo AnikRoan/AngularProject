@@ -1,21 +1,16 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatTableModule } from '@angular/material/table';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
+import { Task } from '../interface/task.interface';
 
-interface Task {
-  description: string;
-  projectName: string;
-  date: Date;
-  time: string;
-  taskId: number;
-}
+
 
 @Component({
   selector: 'app-task-dashboard',
@@ -31,21 +26,28 @@ interface Task {
     CommonModule,
     ReactiveFormsModule
   ],
+  providers: [DatePipe], 
   templateUrl: './task-dashboard.component.html',
   styleUrls: ['./task-dashboard.component.scss']
 })
 export class TaskDashboardComponent implements OnInit {
   
-  task: Task ={description: '', projectName: '', date: new Date(), time: '', taskId: 0}
+  task: Task ={description: '', projectName: '', date: new Date(), time: ''}
   tasks: Task[] = [];
   displayedColumns: string[] = ['description', 'projectName', 'date', 'time','actions'];
   deleteTask: EventEmitter<number> = new EventEmitter<number>();
-  taskForm: FormGroup = new FormGroup({
-    description: new FormControl(''),
-    projectName: new FormControl(''),
-    date: new FormControl(''),
-    time: new FormControl(''),
-  });
+  taskForm: FormGroup;
+
+  
+  constructor(private formBuilder:  FormBuilder, private datePipe: DatePipe){
+      this.taskForm = this.formBuilder.group({
+      description: [''],
+      projectName: [''],
+      date: [new Date()],
+      time: ['']
+     })
+   }
+
 
   ngOnInit(): void {
     const savedTasks = localStorage.getItem('tasks')
@@ -58,12 +60,11 @@ export class TaskDashboardComponent implements OnInit {
   addTask(): void {
     if(this.taskForm.valid){
       const task = this.taskForm.value;
-      task.taskId = this.generateTaskId();
-
-         if(!task.date){
-           task.date = new Date().toISOString().split('T')[0];
-         }else{
-           task.date = new Date(task.date).toISOString().split('T')[0];
+        if(!task.date){
+           task.date = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+          }else{
+           task.date = this.datePipe.transform(task.date, 'yyyy-MM-dd');
+          
          }
          
       if(!task.time){
@@ -76,6 +77,7 @@ export class TaskDashboardComponent implements OnInit {
       });
       
       localStorage.setItem('tasks', JSON.stringify(this.tasks))
+     
     }
    
   }
@@ -86,13 +88,11 @@ export class TaskDashboardComponent implements OnInit {
     const minutes = now.getMinutes().toString().padStart(2, '0'); 
     return `${hours}:${minutes}`;
   }
-  generateTaskId(): number {
-    return this.tasks.length > 0 ? Math.max(...this.tasks.map(task => task.taskId)) + 1 : 1;
-  }
+
   
   removeTask(taskId: number): void {
+    console.log("Task ID "+taskId)
     this.tasks.splice(taskId, 1)
     localStorage.setItem('tasks', JSON.stringify(this.tasks))
-    
-  }
+   }
 }
