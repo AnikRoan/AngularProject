@@ -1,1 +1,6 @@
-<app-task-dashboard></app-task-dashboard>
+
+<div>
+    <button *ngIf="!isErrorPage" type="button" routerLink="/task-dashboard">Task Tracker</button>
+    <router-outlet></router-outlet>
+
+</div>
