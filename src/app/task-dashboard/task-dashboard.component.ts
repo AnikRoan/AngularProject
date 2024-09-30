@@ -1,6 +1,6 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -36,7 +36,6 @@ export class TaskDashboardComponent implements OnInit {
   task: Task ={description: '', projectName: '', date: new Date(), time: ''}
   tasks: Task[] = [];
   displayedColumns: string[] = ['description', 'projectName', 'date', 'time','actions'];
-  deleteTask: EventEmitter<number> = new EventEmitter<number>();
   taskForm: FormGroup;
 
   

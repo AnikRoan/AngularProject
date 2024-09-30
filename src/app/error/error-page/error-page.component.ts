@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit} from '@angular/core';
 import { RouterModule } from '@angular/router';
+
+
+
 
 @Component({
   selector: 'app-error-page',
@@ -13,7 +16,16 @@ import { RouterModule } from '@angular/router';
   templateUrl: './error-page.component.html',
   styleUrl: './error-page.component.scss'
 })
-export class ErrorPageComponent {
+export class ErrorPageComponent implements OnInit, OnDestroy {
   message = "Something went wrong.";
+  
+  
+  ngOnInit(): void {
+    console.log('ngOnInit called');
+  }
 
+  ngOnDestroy(): void {
+     console.log('ngOnDestroy called');
+  }
 }
+
