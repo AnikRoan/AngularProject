@@ -1,8 +1,19 @@
-
 <div>
-    <button *ngIf="!isErrorPage" type="button" routerLink="/task-dashboard">
-        Task Tracker
-    </button>
-    <router-outlet ></router-outlet>
-  </div>
- 
+  @if(authServ.isAuthenticated){
+  <button (click)="authServ.logOut()"
+    class="px-4 py-2 bg-gray-400  text-white rounded-lg shadow-lg text-gray-700 mb-1">Log Out</button>
+
+  }
+</div>
+<div>
+  @if(authServ.isAuthenticated){
+  <button *ngIf="!isErrorPage " type="button" routerLink="/task-dashboard"
+    class="mt-10 ml-10 px-4 py-2 bg-gray-400  text-white rounded-lg shadow-lg text-gray-700 mb-1">
+    Task Tracker
+  </button>
+
+  }
+  <router-outlet></router-outlet>
+</div>
+
+<!-- <app-login></app-login> -->
