@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Registration } from "../models/Registration.model";
-import { Login } from "../models/Login.model";
-import { TokenResponse } from "../models/TokenResponse.model";
+import { Registration } from "../models/registration-model.model";
+import { Login } from "../models/login-model.model";
+import { TokenResponse } from "../models/tokenResponse-model.model";
 import { jwtDecode } from 'jwt-decode'
 import { Router } from "@angular/router";
 

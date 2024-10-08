@@ -1,42 +1,42 @@
+
 <!--Login Form-->
-<div class="ml-10 mr-10">
-  <form (ngSubmit)="submitLogin()"
-   class="mb-4 p-4 bg-gray-100  rounded-lg shadow-lg text-gray-700 mb-1"
-    [formGroup]="loginForm">
-    <div>
+<mat-card>
+  <mat-card-content>
+    <form (ngSubmit)="submitLogin()" [formGroup]="loginForm">
       <div>
-        <label class="block font-bold text-gray-700 mb-1">
-          EMAIL:
-        </label>
-        <mat-form-field>
-          <input matInput placeholder="email" formControlName="email" />
-        </mat-form-field>
+        <div>
+          <label>
+            EMAIL:
+          </label>
+          <mat-form-field>
+            <input matInput placeholder="email" formControlName="email" />
+          </mat-form-field>
+        </div>
+
+        <div>
+          <label>
+            PASSWORD:
+          </label>
+          <mat-form-field>
+            <input matInput placeholder="password" type="password" formControlName="password" />
+          </mat-form-field>
+        </div>
+
       </div>
 
       <div>
-        <label class="block font-bold text-gray-700 mb-1">
-          PASSWORD:
-        </label>
-        <mat-form-field>
-          <input matInput placeholder="password" type="password" formControlName="password" />
-        </mat-form-field>
+        <div>
+          <button mat-button type="submit">
+            Login
+          </button>
+
+          <button mat-button (click)="goToRegistration($event)">
+            Register
+          </button>
+        </div>
       </div>
 
-    </div>
-
-    <div>
-      <div>
-        <button type="submit"
-         class="px-4 py-2 bg-gray-400  text-white rounded-lg shadow-lg text-gray-700 mb-1">
-          Login
-        </button>
-
-        <button (click)="goToRegistration($event)"
-          class="px-4 py-2 bg-gray-400  text-white rounded-lg shadow-lg text-gray-700 mb-1 ml-4">
-          Register
-        </button>
-      </div>
-    </div>
-
-  </form>
-</div>
+    </form>
+  </mat-card-content>
+ </mat-card>
+  

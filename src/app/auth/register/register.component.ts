@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../service/auth-service.service';
-import { Registration } from '../../models/Registration.model';
+import { Registration } from '../../models/registration-model.model';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';

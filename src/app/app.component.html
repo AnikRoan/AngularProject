@@ -1,19 +1,16 @@
 <div>
   @if(authServ.isAuthenticated){
-  <button (click)="authServ.logOut()"
-    class="px-4 py-2 bg-gray-400  text-white rounded-lg shadow-lg text-gray-700 mb-1">Log Out</button>
+  <button mat-button (click)="authServ.logOut()">Log Out</button>
 
   }
 </div>
-<div>
+<!-- <div>
   @if(authServ.isAuthenticated){
-  <button *ngIf="!isErrorPage " type="button" routerLink="/task-dashboard"
-    class="mt-10 ml-10 px-4 py-2 bg-gray-400  text-white rounded-lg shadow-lg text-gray-700 mb-1">
+  <button mat-button *ngIf="!isErrorPage " type="button" routerLink="/task-dashboard">
     Task Tracker
   </button>
 
   }
-  <router-outlet></router-outlet>
-</div>
+</div> -->
+<router-outlet></router-outlet>
 
-<!-- <app-login></app-login> -->

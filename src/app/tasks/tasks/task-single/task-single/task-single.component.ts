@@ -1,5 +1,5 @@
 import { Component, DestroyRef, Input, OnDestroy, OnInit } from '@angular/core';
-import { Task } from '../../../../models/Task.model';
+import { Task } from '../../../../models/task-model.model';
 import { TaskService } from '../../../../service/task-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -129,6 +129,7 @@ export class TaskSingleComponent implements OnInit, OnDestroy {
             });
           } else {
             this.taskService.taskHaveCanged.next(true);
+            this.router.navigate(['/task-dashboard']);
           }
       
         }

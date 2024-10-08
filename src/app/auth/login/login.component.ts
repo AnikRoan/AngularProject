@@ -10,8 +10,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { AuthService } from '../../service/auth-service.service';
-import { Login } from '../../models/Login.model';
-import { TokenResponse } from '../../models/TokenResponse.model';
+import { Login } from '../../models/login-model.model';
+import { TokenResponse } from '../../models/tokenResponse-model.model';
 
 @Component({
   selector: 'app-login',

@@ -1,10 +1,11 @@
 import { Injectable, DestroyRef, OnDestroy } from "@angular/core";
-import { Task } from "../models/Task.model";
+import { Task } from "../models/task-model.model";
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from "./auth-service.service";
+import { Router } from "@angular/router";
 
 @Injectable({ providedIn: 'root' })
 export class TaskService implements OnDestroy {
@@ -24,7 +25,8 @@ export class TaskService implements OnDestroy {
 
    constructor(
       public httpService: HttpClient,
-      private authService: AuthService) {
+      private authService: AuthService,
+      private router: Router) {
       this.loadTasks();
    }
    ngOnDestroy(): void {
@@ -108,6 +110,7 @@ export class TaskService implements OnDestroy {
                next: () => {
                   alert("The task has been edited");
                   this.loadTasks();
+                  this.router.navigate(['/task-dashboard']);
                },
                error: (err) => {
                   console.log(err);

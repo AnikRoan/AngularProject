@@ -1,40 +1,37 @@
 <div *ngIf="isSingleTask">
-  <button (click)="goToTaskList()"
-    class="ml-10 px-4 py-2 px-4 py-2 bg-gray-400  text-white rounded-lg shadow-lg text-gray-700 mb-4">
+  <button mat-button (click)="goToTaskList()">
     Go Back to List
   </button>
 </div>
 
 <!-- Task List View -->
-<div class="ml-10 mr-10">
-  <table mat-table class="bg-gray-100  rounded-lg shadow-lg mb-1 w-auto" [dataSource]="taskService.taskList$"
-    *ngIf="!isSingleTask && !editMode && !addMode">
+
+  <table mat-table [dataSource]="taskService.taskList$" *ngIf="!isSingleTask && !editMode && !addMode">
 
     <ng-container matColumnDef="project">
-      <th mat-header-cell *matHeaderCellDef class="text-gray-700"> Project Name </th>
-      <td mat-cell *matCellDef="let task" class="text-gray-700"> {{ task.project }} </td>
+      <th mat-header-cell *matHeaderCellDef> Project Name </th>
+      <td mat-cell *matCellDef="let task"> {{ task.project }} </td>
     </ng-container>
 
     <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef class="text-gray-700"> Description </th>
-      <td mat-cell *matCellDef="let task" class="text-gray-700"> {{ task.description }} </td>
+      <th mat-header-cell *matHeaderCellDef> Description </th>
+      <td mat-cell *matCellDef="let task"> {{ task.description }} </td>
     </ng-container>
 
     <ng-container matColumnDef="time">
-      <th mat-header-cell *matHeaderCellDef class="text-gray-700"> Time </th>
-      <td mat-cell *matCellDef="let task" class="text-gray-700"> {{ task.time }} </td>
+      <th mat-header-cell *matHeaderCellDef> Time </th>
+      <td mat-cell *matCellDef="let task"> {{ task.time }} </td>
     </ng-container>
 
     <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef class="text-gray-700"> Date </th>
-      <td mat-cell *matCellDef="let task" class="text-gray-700"> {{ task.date | date: 'yyyy-MM-dd' }} </td>
+      <th mat-header-cell *matHeaderCellDef> Date </th>
+      <td mat-cell *matCellDef="let task"> {{ task.date | date: 'yyyy-MM-dd' }} </td>
     </ng-container>
 
     <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef class="text-gray-700"> Actions </th>
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
       <td mat-cell *matCellDef="let task;let i = index">
-        <button (click)="!isSingleTask && goToSingleTask(task.id)"
-          class="px-4 py-2 bg-gray-300 text-white rounded hover:bg-gray-900 transition duration-300">
+        <button mat-button (click)="!isSingleTask && goToSingleTask(task.id)">
           Action
         </button>
       </td>
@@ -43,12 +40,12 @@
     <tr mat-header-row *matHeaderRowDef="['project', 'description', 'time', 'date', 'actions']"></tr>
     <tr mat-row *matRowDef="let row; columns: ['project', 'description', 'time', 'date', 'actions']"></tr>
   </table>
-</div>
+
+
 
 <!-- Single Task View -->
-<div *ngIf="isSingleTask" class="ml-10 mr-10">
-  <mat-card class="mb-4 p-4 bg-gray-100  rounded-lg shadow-lg text-gray-700 mb-1">
-    <mat-card-content class="mb-2">
+  <mat-card *ngIf="isSingleTask">
+    <mat-card-content>
       <p>
         <strong>PROJECT:</strong> {{ taskForDisplay.project }}
       </p>
@@ -67,75 +64,74 @@
     </mat-card-content>
 
     <mat-card-actions>
-      <button class="px-4 py-2 bg-gray-400  text-white rounded-lg shadow-lg text-gray-700 mb-1"
-        (click)="taskService.removeTask(taskForDisplay.id)">
+      <button mat-button (click)="taskService.removeTask(taskForDisplay.id)">
         Delete
       </button>
-      <button class="px-4 py-2 bg-gray-400 text-white rounded-lg shadow-lg text-gray-700 mb-1  ml-4 "
-        (click)="toggleEdit(true, taskForDisplay)">
+      <button mat-button (click)="toggleEdit(true, taskForDisplay)">
         Edit
       </button>
     </mat-card-actions>
   </mat-card>
-</div>
 
+<br />
 
 
 <!-- Edit/Create Task View -->
-<div class="ml-10 mr-10">
-  <form *ngIf="editMode || addMode" (ngSubmit)="submitEdit()"
-    class="mb-4 p-4 bg-gray-100  rounded-lg shadow-lg text-gray-700 mb-1" [formGroup]="taskForm">
-    <div>
-      <div>
-        <label class="block font-bold text-gray-700 mb-1">
-          PROJECT:
-        </label>
-        <mat-form-field>
-          <input matInput placeholder="project" formControlName="project" />
-        </mat-form-field>
-      </div>
+  <mat-card *ngIf="editMode || addMode">
+    <mat-card-content>
+      
+        <form  (ngSubmit)="submitEdit()" [formGroup]="taskForm">
+          <div>
+            <div>
+              <label class="block font-bold text-gray-700 mb-1">
+                PROJECT:
+              </label>
+              <mat-form-field>
+                <input matInput placeholder="project" formControlName="project" />
+              </mat-form-field>
+            </div>
 
-      <div>
-        <label class="block font-bold text-gray-700 mb-1">
-          DESCRIPTION:
-        </label>
-        <mat-form-field>
-          <input matInput placeholder="description" formControlName="description" />
-        </mat-form-field>
-      </div>
+            <div>
+              <label>
+                DESCRIPTION:
+              </label>
+              <mat-form-field>
+                <input matInput placeholder="description" formControlName="description" />
+              </mat-form-field>
+            </div>
 
-      <div>
-        <label class="block font-bold text-gray-700 mb-1">
-          DATE:
-        </label>
-        <mat-form-field>
-          <input matInput placeholder="date" formControlName="date" />
-        </mat-form-field>
-      </div>
+            <div>
+              <label>
+                DATE:
+              </label>
+              <mat-form-field>
+                <input matInput placeholder="date" formControlName="date" />
+              </mat-form-field>
+            </div>
 
-      <div>
-        <label class="block font-bold text-gray-700 mb-1">
-          TIME:
-        </label>
-        <mat-form-field>
-          <input matInput placeholder="time" formControlName="time" />
-        </mat-form-field>
-      </div>
-    </div>
+            <div>
+              <label>
+                TIME:
+              </label>
+              <mat-form-field>
+                <input matInput placeholder="time" formControlName="time" />
+              </mat-form-field>
+            </div>
+          </div>
 
-    <div>
-      <div>
-        <button type="button" (click)="toggleEdit(false)"
-          class="px-4 py-2 bg-gray-400  text-white rounded-lg shadow-lg text-gray-700 mb-1">
-          Cancel
-        </button>
+          <div>
+            <div>
+              <button mat-button type="button" (click)="toggleEdit(false)">
+                Cancel
+              </button>
 
-        <button type="submit"
-         class="px-4 py-2 bg-gray-400 text-white rounded-lg shadow-lg text-gray-700 mb-1  ml-4">
-          Save
-        </button>
-      </div>
-    </div>
+              <button mat-button type="submit">
+                Save
+              </button>
+            </div>
+          </div>
+        </form>
+     
+    </mat-card-content>
+  </mat-card>
 
-  </form>
-</div>
