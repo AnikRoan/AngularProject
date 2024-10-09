@@ -58,11 +58,11 @@ export class LoginComponent {
     .subscribe({
       next: (res: TokenResponse) => {
         alert("Login successful");
-        // console.log(res);
         this.authServ.handleLogin(res.token).then(()=>{
           this.router.navigate(["task-dashboard"]);
         });
       },
+        
       error: (err: any) => {
         console.log(err);
         alert("Login failed");
