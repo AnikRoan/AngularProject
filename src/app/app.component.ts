@@ -6,12 +6,10 @@ import { CommonModule } from '@angular/common';
 import { inject } from '@angular/core';
 import { filter } from 'rxjs/operators';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { TasksComponent } from './tasks/tasks/tasks.component';
 import { TaskSingleComponent } from './tasks/tasks/task-single/task-single/task-single.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
-import { AuthInterceptor } from './architecture/auth-interceptor.interceptor';
 import { AuthService } from './service/auth-service.service';
 import { TokenResponse } from './models/tokenResponse-model.model';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,8 +19,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
-
-
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material/icon';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +31,6 @@ import { MatTableModule } from '@angular/material/table';
     RouterModule,
     ErrorPageComponent,
     CommonModule,
-    HttpClientModule,
     FormsModule,
     TasksComponent,
     TaskSingleComponent,
@@ -45,14 +44,16 @@ import { MatTableModule } from '@angular/material/table';
     MatNativeDateModule,
     MatTableModule,
     ReactiveFormsModule,
-    MatCardModule
+    MatCardModule,
+    MatInputModule,
+    MatToolbarModule,
+    MatIconModule,
+
   ],
 
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
-
-
 
 
 export class AppComponent implements OnInit {
@@ -62,13 +63,21 @@ export class AppComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
 
   constructor(private router: Router,
-    public authServ: AuthService
-  ) { }
+    public authServ: AuthService,
+    private matIconRegistry: MatIconRegistry,
+    private sanitizer: DomSanitizer
+  ) {
+    this.matIconRegistry.addSvgIcon(
+      'instagram-icon',
+      this.sanitizer.bypassSecurityTrustResourceUrl('assets/icons/instagram-icon.svg')
+    );
+  }
+
   ngOnInit(): void {
     this.subscribeToErrorEvent();
     this.checkAuth();
-  }
 
+  }
   checkAuth() {
     let token = localStorage.getItem('token');
     if (token !== null && token.length > 2) {
@@ -87,7 +96,6 @@ export class AppComponent implements OnInit {
   }
 
 
-
   subscribeToErrorEvent(): void {
     this.router.events
       .pipe(takeUntilDestroyed(this.destroyRef),
@@ -101,5 +109,4 @@ export class AppComponent implements OnInit {
   }
 
 }
-
 

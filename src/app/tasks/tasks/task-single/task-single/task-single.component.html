@@ -6,7 +6,7 @@
 
 <!-- Task List View -->
 
-  <table mat-table [dataSource]="taskService.taskList$" *ngIf="!isSingleTask && !editMode && !addMode">
+  <table mat-table [dataSource]="taskService.taskList$" *ngIf="!isSingleTask && !editMode && !addMode" class="custom-card">
 
     <ng-container matColumnDef="project">
       <th mat-header-cell *matHeaderCellDef> Project Name </th>
@@ -77,7 +77,7 @@
 
 
 <!-- Edit/Create Task View -->
-  <mat-card *ngIf="editMode || addMode">
+  <mat-card *ngIf="editMode || addMode" class="custom-card">
     <mat-card-content>
       
         <form  (ngSubmit)="submitEdit()" [formGroup]="taskForm">

@@ -1,0 +1,45 @@
+
+.footer {
+    position: fixed; 
+    bottom: 0; 
+    left: 0;
+    right: 0;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+
+          .site-links {
+              display: flex;
+              a {
+                  color: white;
+                 
+                  margin: 0 15px;
+                 
+                  text-decoration: none;
+                 
+      
+                  &:hover {
+                      text-decoration: underline;
+                     
+                  }
+              }
+          }
+      
+          .logo-contact {
+              display: flex;
+             
+              align-items: center
+            }
+          
+            
+        }
+             
+      
+                  
+               
+              
+      
+             
+
+
+

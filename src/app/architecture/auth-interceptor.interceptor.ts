@@ -13,6 +13,10 @@ export class AuthInterceptor implements HttpInterceptor {
         const windowLocation: string = window.location.href;
         let rootUrl = "http://localhost:8080/";
 
+        if (req.url.startsWith('/assets/') || req.url.endsWith('.svg') || req.url.includes('/icons/')) {
+            return next.handle(req);
+        }
+
         if (!windowLocation.includes("localhost")) {
             rootUrl = "https://";
         }

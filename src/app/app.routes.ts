@@ -1,4 +1,4 @@
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { TasksComponent } from './tasks/tasks/tasks.component';
 import { TaskSingleComponent } from './tasks/tasks/task-single/task-single/task-single.component';
